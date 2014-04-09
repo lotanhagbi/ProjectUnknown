@@ -28,7 +28,9 @@
  * @property UsersWork[] $usersWorks
  */
 class User extends CActiveRecord {
-
+	
+	private $id = null;
+	
     public $user_terms = false;
 
     /**
@@ -58,6 +60,8 @@ class User extends CActiveRecord {
             array('user_birthdate', 'date', 'format' => 'd-M-yyyy'),
             array('user_email', 'email'),
             array('user_terms', 'compare', 'compareValue' => '1', 'strict' => true, 'on' => 'register','message'=>'You must agree to the terms of conditions.'),
+			array('user_email, user_pass', 'required' , 'on' => 'login'),
+			array('user_pass', 'authenticate'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, first_name, middle_name, last_name, user_title, user_birthdate, user_gender, user_rel_status, user_note, user_thumbnail, user_pass, user_type, user_phone, user_sec_phone, user_email, user_website', 'safe', 'on' => 'search'),
@@ -99,6 +103,7 @@ class User extends CActiveRecord {
             'user_sec_phone' => 'Secondary Phone Number',
             'user_email' => 'Email',
             'user_website' => 'Website',
+			'user_terms' => 'By checking this Box I agree to the <a href="#" >Terms of Use </a>',
         );
     }
 
@@ -150,5 +155,27 @@ class User extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+	
+	public function authenticate($attribute = null,$params = null) {
+        if(!$this->hasErrors())  // we only want to authenticate when no input errors
+    {
+        $identity=new UserIdentity($this->user_email,$this->user_pass);
+        $identity->authenticate();
+
+		switch($identity->errorCode)
+		{
+			case UserIdentity::ERROR_NONE:
+				$duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
+				Yii::app()->user->login($identity,$duration);
+				break;
+			case UserIdentity::ERROR_USERNAME_INVALID:
+				$this->addError('user_email','User email is incorrect.');
+				break;
+			default: // UserIdentity::ERROR_PASSWORD_INVALID
+				$this->addError('user_pass','Password is incorrect.');
+				break;
+		}
+    }
+	}
 
 }

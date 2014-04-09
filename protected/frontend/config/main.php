@@ -36,12 +36,12 @@ return array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
         ),
-        // uncomment the following to use a MySQL database
+        // uncomment the following to use a MySQL database sjAdcanUyt86vKjS
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=db_unknownproject',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'sjAdcanUyt86vKjS',
+            'password' => '',
             'charset' => 'utf8',
             'tablePrefix' => 'tbl_',
         ),

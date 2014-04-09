@@ -1,7 +1,7 @@
 <?php
 
 class UserController extends CController {
-
+	
     public function actionRegister() {
         $user = new User('register');
 
@@ -21,6 +21,18 @@ class UserController extends CController {
             }
         }
         $this->render('register', array('user' => $user));
+    }
+	
+	public function actionLogin() {
+        $user = new User('login');
+		echo $user->authenticate();
+        if (isset($_POST['User'])) {
+            $user->attributes = $_POST['User'];
+            if ($user->validate() && $user->authenticate()) {
+				$this->redirect(Yii::app()->user->returnUrl);
+            }
+        }
+        $this->render('login', array('user' => $user));
     }
 
     public function actionGet($id) {
