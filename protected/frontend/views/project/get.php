@@ -245,7 +245,7 @@
                         <div class="panel-body">
                             <p>
                                 <span class="header">Owner :</span>
-                                <span class="content text-capitalized"><a href="../user/1"><img class="img-circle user-thumbnile" src="../lib/img/unknown_profile.jpg"/>&nbsp;Lotan hagbi</a></span>
+                                <span class="content text-capitalized"><a href="../user/1"><img class="img-circle user-thumbnile" src="../user/1/thumbnail"/>&nbsp;Lotan hagbi</a></span>
                             </p>
                             <p>
                                 <span class="header">Published :</span>

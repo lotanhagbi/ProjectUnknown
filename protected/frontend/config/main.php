@@ -6,19 +6,27 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Unknown Project 0.0.0.1',
+    'name' => 'Unknown Project',
+    'aliases' => array(
+    ),
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
-        'application.components.*'
+        'application.components.*',
+        'bootstrap.behaviors.*',
+        'bootstrap.helpers.*',
+        'bootstrap.widgets.*'
     ),
     'modules' => array(
         'gii' => array(
             'class' => 'system.gii.GiiModule',
             'password' => 'hhagbi',
-            'ipFilters' => array('127.0.0.1', '::1')
+            'ipFilters' => array('127.0.0.1', '::1'),
+            'generatorPaths' => array(
+                'bootstrap.gii',
+            ),
         ),
     ),
     'defaultController' => 'post',
@@ -49,6 +57,7 @@ return array(
                 'gii/<controller:\w+>' => 'gii/<controller>',
                 'gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
                 'user/<id:\d+>' => 'user/get',
+                'user/<id:\d+>/thumbnail' => 'user/thumbnail',
                 'project/<id:\d+>' => 'project/get',
                 'post/<id:\d+>' => 'post/test',
                 'post/<id:\d+>/<title:.*?>' => 'post/view',
@@ -67,6 +76,9 @@ return array(
 //                    'class' => 'CWebLogRoute',
 //                ),
             ),
+        ),
+        'bootstrap' => array(
+            'class' => 'bootstrap.components.BsApi',
         )
     ),
     // application-level parameters that can be accessed

@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php Yii::app()->request->baseUrl ?>">Project Unknown</a>
+            <a class="navbar-brand" href="/">Project Unknown</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,7 +45,7 @@
                     </div>
                 </form>     
                 <li class="divider"></li>
-                <li class="active"><a><i class="fa fa-user"></i>&nbsp;Lotan</a></li>
+                <li class=""><a href="\user\1"><i class="fa fa-user"></i>&nbsp;Lotan</a></li>
                 <li class="divider"></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></b></a>

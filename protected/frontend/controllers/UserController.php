@@ -2,16 +2,35 @@
 
 class UserController extends CController {
 
-    public function actionCreate() {
-        $this->render('create');
+    public function actionRegister() {
+        $user = new User('register');
+
+        // uncomment the following code to enable ajax-based validation
+
+//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-register-form') {
+//            echo CActiveForm::validate($model);
+//            Yii::app()->end();
+//        }
+
+        if (isset($_POST['User'])) {
+            $user->attributes = $_POST['User'];
+            if ($user->validate()) {
+//                if ($user->save()) {
+//                    $this->redirect(array('get', $user->id));
+//                }
+            }
+        }
+        $this->render('register', array('user' => $user));
     }
 
     public function actionGet($id) {
         $id = (int) $id;
 
-        $user = User::model()->findByPk($id);
+        // fetch user by id
+        $user = User::model()->find('id=' . $id);
 
-        $this->render('get',array('user'=>$user));
+        // render view
+        $this->render('get', array('user' => $user));
     }
 
     public function actionIndex() {
@@ -20,6 +39,17 @@ class UserController extends CController {
 
     public function actionUpdate() {
         $this->render('update');
+    }
+
+    public function actionThumbnail($id) {
+        $id = (int) $id;
+
+        // fetch user by id
+        $user = User::model()->find('id=' . $id);
+
+        // return the content as image type
+        header('Content-type: image/jpg');
+        echo $user->user_thumbnail;
     }
 
     // Uncomment the following methods and override them if needed

@@ -6,6 +6,7 @@ $config=dirname(__FILE__).'/protected/frontend/config/main.php';
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 
 require_once($yii);
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/protected/ext/bootstrap3');
 Yii::createWebApplication($config)->run();
-//echo "bla";
+
 ?>

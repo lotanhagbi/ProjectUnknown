@@ -8,7 +8,7 @@
  * @property string $name
  *
  * The followings are the available model relations:
- * @property Users $users
+ * @property Users[] $users
  */
 class UserRelStatus extends CActiveRecord
 {
@@ -44,7 +44,7 @@ class UserRelStatus extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::HAS_ONE, 'Users', 'user_rel_status'),
+			'users' => array(self::HAS_MANY, 'Users', 'user_rel_status'),
 		);
 	}
 

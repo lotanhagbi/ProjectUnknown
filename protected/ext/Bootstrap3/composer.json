@@ -1,0 +1,30 @@
+{
+    "name": "antpolis/bootstap3",
+    "description": "Yii Web Widgets, This is just a alt repos for this module.",
+    "keywords": [
+        "yii",
+        "framework",
+        "extension",
+		"bootstrap"
+    ],
+    "homepage": "https://bitbucket.org/DrMabuse/yii-bootstrap-3-module",
+    "type": "library",
+    "license": "",
+    "version": "0.0.8",
+    "authors": [
+        {
+            "name": "Pascal Brewing",
+            "email": "pascalbrewing@gmail.com",
+            "homepage": "http://pascal-breiwng.de/",
+            "role": "Founder and development"
+        },
+		{
+            "name": "Chris Sim",
+            "email": "chris.sim@antpolis.com",            
+            "role": "Nobody"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

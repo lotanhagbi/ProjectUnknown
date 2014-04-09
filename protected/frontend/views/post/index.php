@@ -1,7 +1,13 @@
 <div class="row">
-    <div class="page-header clearfix text-center">
-        <h1>Find what you want. Find who you are.</h1>
-        <button class="btn btn-primary btn-lg">Start Exploring...</button>
+    <div class="col-xs-12">
+        <div class="page-header clearfix text-center">
+            <h1>One small step for man. one giant leap for mankind</h1>
+            <button class="btn btn-primary btn-lg">Start Exploring...</button>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <a class="btn btn-success btn-lg" href="\user\register">Register</a>
+        <a class="btn btn-default btn-lg" href="#">Login</a>
     </div>
 </div>
 
