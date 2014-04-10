@@ -6,12 +6,14 @@ class PostController extends CController {
      * Lists all models.
      */
     public function actionIndex() {
-        $this->render('index');
-    }
-
-    public function actionTest($id) {
-        $id = (int) $id;
-        $this->render('test', array('ID' => $id));
+        
+        $videoProjects = Project::model()->findAll('project_media_type=3');
+        $topProjects = Project::model()->findAll('project_media_type=2');
+        
+        $this->render('index',array(
+            'videoProjects' => $videoProjects,
+            'topProjects' => $topProjects
+        ));
     }
 
 }

@@ -1,12 +1,11 @@
 <?php
 
 class UserController extends CController {
-	
+
     public function actionRegister() {
         $user = new User('register');
 
         // uncomment the following code to enable ajax-based validation
-
 //        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-register-form') {
 //            echo CActiveForm::validate($model);
 //            Yii::app()->end();
@@ -14,25 +13,29 @@ class UserController extends CController {
 
         if (isset($_POST['User'])) {
             $user->attributes = $_POST['User'];
-            if ($user->validate()) {
-//                if ($user->save()) {
-//                    $this->redirect(array('get', $user->id));
-//                }
+            if ($user->validate() && $user->save()) {
+                $this->redirect(array('user/' . $user->id));
             }
         }
         $this->render('register', array('user' => $user));
     }
-	
-	public function actionLogin() {
+
+    public function actionLogin() {
         $user = new User('login');
-		echo $user->authenticate();
+        
         if (isset($_POST['User'])) {
             $user->attributes = $_POST['User'];
             if ($user->validate() && $user->authenticate()) {
-				$this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect(Yii::app()->user->returnUrl);
             }
         }
+        
         $this->render('login', array('user' => $user));
+    }
+    
+    public function actionLogout(){
+        Yii::app()->user->logout();
+        $this->redirect('/');
     }
 
     public function actionGet($id) {

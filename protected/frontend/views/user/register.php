@@ -21,7 +21,7 @@
 			<h3>Register <small>Create a new account</small></h3>
 		</div>
 
-        <?php echo $form->textFieldControlGroup($user, 'user_email', array('validateOnChange' => true)); ?>
+        <?php echo $form->textFieldControlGroup($user, 'user_email'); ?>
         <?php echo $form->textFieldControlGroup($user, 'first_name'); ?>
         <?php echo $form->textFieldControlGroup($user, 'last_name'); ?>
         <?php echo $form->dateFieldControlGroup($user, 'user_birthdate'); ?>

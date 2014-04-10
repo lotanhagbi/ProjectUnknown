@@ -33,15 +33,18 @@ return array(
     // application components
     'components' => array(
         'user' => array(
+            'class' => 'WebUser',
+            // set default login URL
+            'loginUrl'=>array('user/login'),
             // enable cookie-based authentication
             'allowAutoLogin' => true,
         ),
-        // uncomment the following to use a MySQL database sjAdcanUyt86vKjS
+        // uncomment the following to use a MySQL database
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=db_unknownproject',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => '',
+            'password' => 'sjAdcanUyt86vKjS',
             'charset' => 'utf8',
             'tablePrefix' => 'tbl_',
         ),
@@ -56,12 +59,16 @@ return array(
                 'gii' => 'gii',
                 'gii/<controller:\w+>' => 'gii/<controller>',
                 'gii/<controller:\w+>/<action:\w+>' => 'gii/<controller>/<action>',
+                
                 'user/<id:\d+>' => 'user/get',
                 'user/<id:\d+>/thumbnail' => 'user/thumbnail',
+                
                 'project/<id:\d+>' => 'project/get',
-                'post/<id:\d+>' => 'post/test',
-                'post/<id:\d+>/<title:.*?>' => 'post/view',
-                'posts/<tag:.*?>' => 'post/index',
+                
+/*                'post/<id:\d+>' => 'post/test',
+//                'post/<id:\d+>/<title:.*?>' => 'post/view',
+//                'posts/<tag:.*?>' => 'post/index',
+ */
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ),

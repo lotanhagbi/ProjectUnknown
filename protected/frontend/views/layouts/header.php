@@ -43,16 +43,26 @@
                         <i class="search-icon fa fa-search"></i>
                         <input type="text" class="form-control search-query" placeholder="Search">
                     </div>
-                </form>     
+                </form>
                 <li class="divider"></li>
-                <li class=""><a href="\user\1"><i class="fa fa-user"></i>&nbsp;Lotan</a></li>
+                <?php if (Yii::app()->user->isGuest) { ?>
+                    <li><button class="btn btn-primary navbar-btn" onclick="window.location.href='/user/login'">Login</button></li>
+                    <li><span class="navbar-text navbar-login-text">OR</span></li>
+                    <li><button class="btn btn-success navbar-btn" onclick="window.location.href='/user/register'">Register</button></li>
+                <?php } else { ?> 
+                    <li>
+                        <a class="text-capitalized" href="\user\<?php echo Yii::app()->user->id; ?>">
+                           <i class="fa fa-user"></i>&nbsp;<?php echo Yii::app()->user->first_name; ?>
+                        </a>
+                    </li>
+                <?php } ?>
                 <li class="divider"></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></b></a>
                     <ul class="dropdown-menu">
-                        <li><a><i class="fa fa-gear"></i>&nbsp;Settings</a></li>
-                        <li><a><i class="fa fa-question-circle"></i>&nbsp;Help</a></li>
-                        <li><a><i class="fa fa-power-off"></i>&nbsp;Logout</a></li>
+                        <li><a href="#"><i class="fa fa-gear"></i>&nbsp;Settings</a></li>
+                        <li><a href="#"><i class="fa fa-question-circle"></i>&nbsp;Help</a></li>
+                        <li><a href="/user/logout"><i class="fa fa-power-off"></i>&nbsp;Logout</a></li>
                     </ul>
                 </li>
             </ul>

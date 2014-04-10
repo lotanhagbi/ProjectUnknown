@@ -3,13 +3,31 @@
 class ProjectController extends CController {
 
     public function actionCreate() {
-        $this->render('create');
+        $project = new Project('create');
+
+        // uncomment the following code to enable ajax-based validation
+//        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-register-form') {
+//            echo CActiveForm::validate($model);
+//            Yii::app()->end();
+//        }
+
+        if (isset($_POST['Project'])) {
+            $project->attributes = $_POST['Project'];
+            if ($project->validate() && $project->save()) {
+                $this->redirect(array('project/'.$project->id));
+            }
+        }
+        $this->render('create', array('project' => $project));
     }
 
     public function actionGet($id) {
         $id = (int) $id;
 
-        $this->render('get');
+        // fetch user by id
+        $project = Project::model()->find('id=' . $id);
+
+        // render view
+        $this->render('get', array('project' => $project));
     }
 
     public function actionIndex() {

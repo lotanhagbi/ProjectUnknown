@@ -1,6 +1,6 @@
 <?php
 /* @var $this SiteController */
-/* @var $model LoginForm */
+/* @var $project LoginForm */
 /* @var $form CActiveForm  */
 
 $this->pageTitle=Yii::app()->name . ' - Login';
@@ -26,13 +26,13 @@ $this->breadcrumbs=array(
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->textFieldRow($model,'username'); ?>
+	<?php echo $form->textFieldRow($project,'username'); ?>
 
-	<?php echo $form->passwordFieldRow($model,'password',array(
+	<?php echo $form->passwordFieldRow($project,'password',array(
         'hint'=>'Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>',
     )); ?>
 
-	<?php echo $form->checkBoxRow($model,'rememberMe'); ?>
+	<?php echo $form->checkBoxRow($project,'rememberMe'); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

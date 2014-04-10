@@ -4,17 +4,25 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="col-xs-12 col-md-6 col-md-push-3 text-center media-video">
-                    <div class="video-container">
-                    <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/G8PjOq4QtLo?modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>
-                    </div>
+                    <?php
+                    if ($project->projectMediaType->type == 'img') {
+                        ?>
+                        <img src='<?php echo $project->project_media_link; ?>' alt=""/>
+                        <?php
+                    } else if ($project->projectMediaType->type == 'video') {
+                        ?>
+                        <div class="video-container">
+                            <iframe id="ytplayer" type="text/html" width="640" height="360" src="<?php echo $project->project_media_link; ?>?modestbranding=1&rel=0&theme=light" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="page-header">
+                    <div class="page-header text-center">
                         <h1>
-                            <span>Tasty Bowline</span>
-                            <small class="">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</small>
+                            <span><?php echo $project->project_name; ?></span>
+                            <small class=""><?php echo $project->project_title; ?></small>
                         </h1>
                         <ul class="list-inline">
                             <li class="name"><b>95</b>&nbsp;<small>Page Views</small></li>
@@ -40,21 +48,16 @@
                         <ul id="project-information" class="nav nav-tabs nav-justified">
                             <li class="active"><a href="#project-information-description" data-toggle="tab">Description</a></li>
                             <li class=""><a href="#project-information-basic" data-toggle="tab">Basic Elements</a></li>
-                            <li class="dropdown">
-                                <a href="#" id="project-information-advance-dropdown" class="dropdown-toggle" data-toggle="dropdown">Advance <b class="caret"></b></a>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="project-information-advance-dropdown">
-                                    <li class=""><a href="#project-information-advance-personas" tabindex="-1" data-toggle="tab">Personas</a></li>
-                                </ul>
-                            </li>
+                            <!--                        <li class="dropdown">
+                                                            <a href="#" id="project-information-advance-dropdown" class="dropdown-toggle" data-toggle="dropdown">Advance <b class="caret"></b></a>
+                                                            <ul class="dropdown-menu" role="menu" aria-labelledby="project-information-advance-dropdown">
+                                                                <li class=""><a href="#project-information-advance-personas" tabindex="-1" data-toggle="tab">Personas</a></li>
+                                                            </ul>
+                                                        </li>-->
                         </ul>
                         <div id="project-information-content" class="tab-content">
                             <div class="tab-pane fade active in" id="project-information-description">
-                                <p>
-                                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.<br/>
-                                    Mustache cliche tempor, williamsburg carles vegan helvetica.<br/>
-                                    Probo iriure duo et, ne aeterno utroque apeirian duo. Scaevola lobortis accommodare eam ea. Id veniam salutandi qui, choro gubergren qui id.<br/>
-                                    Pro solum dicam virtute ut. Ei mea errem essent, eum molestiae vituperatoribus et.
-                                </p>
+                                <p><?php echo $project->project_description; ?></p>
                                 <div class="divider"></div>
                                 <div class="content">
                                     <div class="">
@@ -68,134 +71,85 @@
                                 <table class="table">
                                     <tr>
                                         <th>What is it?</th>
-                                        <td>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor.</td>
+                                        <?php
+                                        if ($project->project_whatisit === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_whatisit . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     <tr>
-                                        <th>Users</th>
-                                        <td>Raw denim you probably haven't heard of them jean shorts Austin.</td>
+                                        <th>Users</th>    
+                                        <?php
+                                        if ($project->project_users === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_users . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     <tr>
                                         <th>Needs</th>
-                                        <td>Te mei quot prompta tibique. Incorrupte interesset dissentiet vel et, ea soleat nonumes duo. Vim rationibus signiferumque in, assum volumus hendrerit ad mei, in mel partem discere. At qui nobis adipisci salutandi. Quidam sadipscing in vel, alia quidam percipit at usu, albucius honestatis ad duo. Quod tale dictas ea mea. Eos id diam delenit.</td>
+                                        <?php
+                                        if ($project->project_needs === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_needs . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     <tr>
                                         <th>Insight</th>
-                                        <td>docendi mei, debet consulatu reprimique ea vim. An sit facer clita postea, in omnes possim vis, mei lorem evertitur forensibus te. Ex eam equidem neglegentur, est an clita nominati. Duo conceptam quaerendum eu, graeci omnium eam te, eum id modo prompta.</td>
+                                        <?php
+                                        if ($project->project_insight === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_insight . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     <tr>
                                         <th>Opportunity</th>
-                                        <td>Ut tale eligendi nominati vis, cibo verterem sensibus ne pri. Nam mutat labores copiosae ne. In vis diceret postulant, mei cu vidisse labitur. Sea reque ipsum nostro id, vim et libris vidisse. Id has tantas utinam possit. Diam brute tantas cu his.</td>
+                                        <?php
+                                        if ($project->project_opportunity === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_opportunity . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     <tr>
                                         <th>Competition</th>
-                                        <td>Diam omnium an duo. Insolens antiopam ne sed, te eum officiis gloriatur. Admodum mentitum no cum, ei quo dico assueverit suscipiantur. Vim fabulas pericula honestatis cu. Etiam vituperata his cu, purto neglegentur et sea.</td>
+                                        <?php
+                                        if ($project->project_competition === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_competition . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     <tr>
                                         <th>Value Creation</th>
-                                        <td>Quo et omittam facilisis salutatus, te cum decore vocent salutatus, ad pri malorum philosophia. Eius hendrerit ea eum. Nec legimus constituto ei.</td>
+                                        <?php
+                                        if ($project->project_value_creation === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_value_creation . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                     <tr>
                                         <th>Feasibility</th>
-                                        <td>Usu hinc utinam noster ex.</td>
+                                        <?php
+                                        if ($project->project_feasibility === null) {
+                                            echo '<td class="text-muted">N/A</td>';
+                                        } else {
+                                            echo '<td>' . $project->project_feasibility . '</td>';
+                                        }
+                                        ?>
                                     </tr>
                                 </table>
-                            </div>
-                            <div class="tab-pane fade" id="project-information-advance-personas">
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-6 col-lg-4">
-                                        <div class="thumbnail">
-                                            <img class="img-rounded" src="http://cdni.condenast.co.uk/592x888/a_c/12_handsome_man_gl_10feb10_iStock_b.jpg" alt=""/>
-                                            <div class="caption">
-                                                <p>
-                                                    <span class="header">Name : </span>
-                                                    <span class="content">David Hoffman</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Age : </span>
-                                                    <span class="content">28</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Gender : </span>
-                                                    <span class="content">Male</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Occupation  : </span>
-                                                    <span class="content">Team Leader in Computer Engineering</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Hobbies : </span>
-                                                    <span class="content">Computer gaming, Guitar player, Skiing</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Description : </span>
-                                                    <span class="content">Married without children, Earn about 8000$/month, Work for Microsoft for the last 3 years, Specialize at microchips and nanotechnology, Studied at MIT</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-4">
-                                        <div class="thumbnail">
-                                            <img class="img-rounded" src="http://blogs.babble.com/strollerderby/files/2012/04/iStock_HappyWoman000015424718XSmall.jpg" alt=""/>
-                                            <div class="caption">
-                                                <p>
-                                                    <span class="header">Name : </span>
-                                                    <span class="content">Dana Cohen</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Age : </span>
-                                                    <span class="content">24</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Gender : </span>
-                                                    <span class="content">Female</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Occupation  : </span>
-                                                    <span class="content">Student</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Hobbies : </span>
-                                                    <span class="content">Parting, Draw in Photoshop, Cook, Dating</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Description : </span>
-                                                    <span class="content">Single, Earn about 1500$/month, Work as a waitress, Studies at Shenkar, Specialize at fashion design</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-4">
-                                        <div class="thumbnail">
-                                            <img class="img-rounded" src="http://www.parenthub.com.au/wp-content/uploads/1047918111-Happy-man-206x300.jpg" alt=""/>
-                                            <div class="caption">
-                                                <p>
-                                                    <span class="header">Name : </span>
-                                                    <span class="content">David Hoffman</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Age : </span>
-                                                    <span class="content">28</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Gender : </span>
-                                                    <span class="content">Male</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Occupation  : </span>
-                                                    <span class="content">Team Leader in Computer Engineering</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Hobbies : </span>
-                                                    <span class="content">Computer gaming, Guitar player, Skiing</span>
-                                                </p>
-                                                <p>
-                                                    <span class="header">Description : </span>
-                                                    <span class="content">Married without children, Earn about 8000$/month, Work for Microsoft for the last 3 years, Specialize at microchips and nanotechnology, Studied at MIT</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -225,36 +179,53 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Legal</div>
-                        <div class="panel-body">
-                            <p>
-                                Phasellus vitae sagittis arcu, in tristique urna.Morbi justo orci, eleifend vitae egestas eu, lobortis varius mauris. Nam vitae blandit elit.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--            <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Legal</div>
+                                    <div class="panel-body">
+                                        <p>
+                                            Phasellus vitae sagittis arcu, in tristique urna.Morbi justo orci, eleifend vitae egestas eu, lobortis varius mauris. Nam vitae blandit elit.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
         </div> <!-- div.medium-8.columns -->
         <div class="col-md-4">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-deafult project-status">
                         <div class="panel-body">
-                            <p>
-                                <span class="header">Owner :</span>
-                                <span class="content text-capitalized"><a href="../user/1"><img class="img-circle user-thumbnile" src="../user/1/thumbnail"/>&nbsp;Lotan hagbi</a></span>
-                            </p>
-                            <p>
-                                <span class="header">Published :</span>
-                                <span class="content">31/10/2005</span>
-                            </p>
-                            <p>
-                                <span class="header">Last Updated :</span>
-                                <span class="content text-capitalized">05/04/2014</span>
-                            </p>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <span class="header">Owners :</span>
+
+                                    <?php
+                                    $rowNum = 0;
+                                    $html = '';
+                                    foreach ($project->projectOwners as $owner) {
+                                        if ($rowNum % 2 == 0) {
+                                            $html .= '<div class="row">';
+                                        }
+
+                                        $html .= '<div class="col-xs-6"><span class="content text-capitalized"><a href="/user/' . $owner->id .
+                                                '"><img class="img-circle user-thumbnile" src="/user/' . $owner->id .
+                                                '/thumbnail"/>&nbsp;' . $owner->first_name . ' ' . $owner->last_name . '</a></span></div>';
+
+                                        if ($rowNum % 2 != 0) {
+                                            $html .= '</div>';
+                                        }
+                                        $rowNum++;
+                                    }
+                                    echo $html;
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6"><i class="fa fa-calendar"></i>&nbsp;<?php echo date('d/m/Y', strtotime($project->project_publish_date)); ?></div>
+                                <div class="col-xs-6"><i class="fa fa-clock-o"></i>&nbsp;<?php echo date('d/m/Y', strtotime($project->project_lastupdate)); ?></div>
+                            </div>
                             <div class="row project-status-bar">
                                 <div class="col-xs-12 project-status-bar-body">
                                     <div class="input-control radio has-success">

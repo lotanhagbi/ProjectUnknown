@@ -1,6 +1,6 @@
 <?php
 /* @var $this SiteController */
-/* @var $model ContactForm */
+/* @var $project ContactForm */
 /* @var $form TbActiveForm */
 
 $this->pageTitle=Yii::app()->name . ' - Contact Us';
@@ -36,18 +36,18 @@ If you have business inquiries or other questions, please fill out the following
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary($project); ?>
 
-    <?php echo $form->textFieldRow($model,'name'); ?>
+    <?php echo $form->textFieldRow($project,'name'); ?>
 
-    <?php echo $form->textFieldRow($model,'email'); ?>
+    <?php echo $form->textFieldRow($project,'email'); ?>
 
-    <?php echo $form->textFieldRow($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
+    <?php echo $form->textFieldRow($project,'subject',array('size'=>60,'maxlength'=>128)); ?>
 
-    <?php echo $form->textAreaRow($model,'body',array('rows'=>6, 'class'=>'span8')); ?>
+    <?php echo $form->textAreaRow($project,'body',array('rows'=>6, 'class'=>'span8')); ?>
 
 	<?php if(CCaptcha::checkRequirements()): ?>
-		<?php echo $form->captchaRow($model,'verifyCode',array(
+		<?php echo $form->captchaRow($project,'verifyCode',array(
             'hint'=>'Please enter the letters as they are shown in the image above.<br/>Letters are not case-sensitive.',
         )); ?>
 	<?php endif; ?>

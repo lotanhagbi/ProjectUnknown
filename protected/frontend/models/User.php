@@ -15,7 +15,7 @@
  * @property string $user_note
  * @property string $user_thumbnail
  * @property string $user_pass
- * @property string $user_type
+ * @property string $user_role
  * @property string $user_phone
  * @property string $user_sec_phone
  * @property string $user_email
@@ -28,9 +28,7 @@
  * @property UsersWork[] $usersWorks
  */
 class User extends CActiveRecord {
-	
-	private $id = null;
-	
+
     public $user_terms = false;
 
     /**
@@ -47,11 +45,11 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('first_name, last_name, user_birthdate, user_rel_status, user_pass, user_email', 'required'),
+            array('first_name, last_name, user_birthdate, user_pass, user_email', 'required', 'on' => 'register'),
             array('first_name, middle_name, last_name, user_phone, user_sec_phone', 'length', 'max' => 50),
             array('user_title', 'length', 'max' => 150),
             array('user_gender', 'length', 'max' => 1),
-            array('user_rel_status, user_type', 'length', 'max' => 2),
+            array('user_rel_status, user_role', 'length', 'max' => 2),
             array('user_note', 'length', 'max' => 2000),
             array('user_pass', 'length', 'max' => 45),
             array('user_email', 'length', 'max' => 70),
@@ -59,12 +57,12 @@ class User extends CActiveRecord {
             array('user_thumbnail', 'safe'),
             array('user_birthdate', 'date', 'format' => 'd-M-yyyy'),
             array('user_email', 'email'),
-            array('user_terms', 'compare', 'compareValue' => '1', 'strict' => true, 'on' => 'register','message'=>'You must agree to the terms of conditions.'),
-			array('user_email, user_pass', 'required' , 'on' => 'login'),
-			array('user_pass', 'authenticate'),
+            array('user_terms', 'compare', 'compareValue' => '1', 'strict' => true, 'on' => 'register', 'message' => 'You must agree to the terms of conditions.'),
+            array('user_email, user_pass', 'required', 'on' => 'login'),
+            array('user_pass', 'authenticate'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, first_name, middle_name, last_name, user_title, user_birthdate, user_gender, user_rel_status, user_note, user_thumbnail, user_pass, user_type, user_phone, user_sec_phone, user_email, user_website', 'safe', 'on' => 'search'),
+            array('id, first_name, middle_name, last_name, user_title, user_birthdate, user_gender, user_rel_status, user_note, user_thumbnail, user_pass, user_phone, user_sec_phone, user_email, user_website', 'safe', 'on' => 'search'),
         );
     }
 
@@ -98,12 +96,12 @@ class User extends CActiveRecord {
             'user_note' => 'Personal Note',
             'user_thumbnail' => 'Picture',
             'user_pass' => 'Password',
-            'user_type' => 'User Type',
+            'user_role' => 'User Role',
             'user_phone' => 'Phone Number',
             'user_sec_phone' => 'Secondary Phone Number',
             'user_email' => 'Email',
             'user_website' => 'Website',
-			'user_terms' => 'By checking this Box I agree to the <a href="#" >Terms of Use </a>',
+            'user_terms' => 'By checking this Box I agree to the <a href="#" >Terms of Use </a>',
         );
     }
 
@@ -135,7 +133,7 @@ class User extends CActiveRecord {
         $criteria->compare('user_note', $this->user_note, true);
         $criteria->compare('user_thumbnail', $this->user_thumbnail, true);
         $criteria->compare('user_pass', $this->user_pass, true);
-        $criteria->compare('user_type', $this->user_type, true);
+        $criteria->compare('user_role', $this->user_role, true);
         $criteria->compare('user_phone', $this->user_phone, true);
         $criteria->compare('user_sec_phone', $this->user_sec_phone, true);
         $criteria->compare('user_email', $this->user_email, true);
@@ -155,27 +153,26 @@ class User extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-	
-	public function authenticate($attribute = null,$params = null) {
-        if(!$this->hasErrors())  // we only want to authenticate when no input errors
-    {
-        $identity=new UserIdentity($this->user_email,$this->user_pass);
-        $identity->authenticate();
 
-		switch($identity->errorCode)
-		{
-			case UserIdentity::ERROR_NONE:
-				$duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
-				Yii::app()->user->login($identity,$duration);
-				break;
-			case UserIdentity::ERROR_USERNAME_INVALID:
-				$this->addError('user_email','User email is incorrect.');
-				break;
-			default: // UserIdentity::ERROR_PASSWORD_INVALID
-				$this->addError('user_pass','Password is incorrect.');
-				break;
-		}
+    public function authenticate($attribute = null, $params = null) {
+        if (!$this->hasErrors()) {  // we only want to authenticate when no input errors
+            $identity = new UserIdentity($this->user_email, $this->user_pass);
+            $identity->authenticate();
+
+            switch ($identity->errorCode) {
+                case UserIdentity::ERROR_NONE:
+                    $duration = 3600 * 24 * 30; // 30 days
+//                    echo '<pre>'.var_dump($identity->getAuthenticatedUser()).'</pre>';
+                    Yii::app()->user->login($identity, $duration);
+                    break;
+                case UserIdentity::ERROR_USERNAME_INVALID:
+                    $this->addError('user_email', 'User email is incorrect.');
+                    break;
+                default: // UserIdentity::ERROR_PASSWORD_INVALID
+                    $this->addError('user_pass', 'Password is incorrect.');
+                    break;
+            }
+        }
     }
-	}
 
 }
